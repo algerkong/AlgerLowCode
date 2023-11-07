@@ -1,24 +1,21 @@
 <template>
-  <draggable v-model="myArray" group="people" item-key="id" @start="drag = true" @end="drag = false">
-    <template #item="{ element }">
-      <div class="item">{{ element.name }}</div>
-    </template>
-  </draggable>
+  <layoutIndex></layoutIndex>
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs } from 'vue'
-import draggable from 'vuedraggable'
+// import { reactive, toRefs } from 'vue'
+// import draggable from 'vuedraggable'
+import layoutIndex from '@/designer/layouts/index.vue'
 
-const data = reactive({
-  drag: false,
-  myArray: [
-    { id: 1, name: 'Jenny1111' },
-    { id: 2, name: 'kevin' },
-    { id: 3, name: 'lili' },
-  ],
-})
-const { drag, myArray } = toRefs(data)
+// const data = reactive({
+//   drag: false,
+//   myArray: [
+//     { id: 1, name: 'Jenny1111' },
+//     { id: 2, name: 'kevin' },
+//     { id: 3, name: 'lili' },
+//   ],
+// })
+// const { drag, myArray } = toRefs(data)
 </script>
 
 <style lang="scss" scoped>
