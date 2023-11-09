@@ -19,15 +19,19 @@
     <t-layout>
       <t-aside class="scrollbar">
         <draggable
-          v-model="myArray"
+          v-model="WIDGET_LIST"
           :group="{ name: 'icdDesigner', pull: 'clone', put: false }"
           item-key="id"
           :sort="false"
+          :transition-duration="2000"
+          class="widget-list"
           @start="drag = true"
           @end="drag = false"
         >
           <template #item="{ element }">
-            <div class="p-4 m-2 bg-red-100">{{ element.name }}</div>
+            <div class="widget-list-item">
+              <div class="widget-list-item-box">{{ element.name }}</div>
+            </div>
           </template>
         </draggable>
       </t-aside>
@@ -46,25 +50,27 @@ import CodeMain from './components/CodeMain.vue'
 
 import { reactive, toRefs } from 'vue'
 import draggable from 'vuedraggable'
-
-const data = reactive({
-  drag: false,
-  myArray: [
-    { id: 1, name: 'Jenny1111' },
-    { id: 2, name: 'kevin' },
-    { id: 3, name: 'lili' },
-  ],
-})
-const { drag, myArray } = toRefs(data)
+import { WIDGET_LIST } from '@/common/widget-list'
+import { ref } from 'vue'
+const drag = ref(false)
 </script>
 
 <style lang="scss" scoped>
+.widget-list {
+  @apply flex flex-wrap m-2;
+  &-item {
+    @apply w-[50%]  transition-all flex items-center justify-center;
+    &-box {
+      @apply w-full p-2 mx-2 my-1 box-border border border-gray-200 text-ellipsis overflow-hidden whitespace-nowrap text-xs cursor-move rounded-sm;
+    }
+  }
+}
 .t-layout--with-sider {
   height: calc(100vh - 56px);
 }
 .t-layout {
   &__sider {
-    width: 200px;
+    width: 260px;
     overflow-y: auto;
   }
   &__content {
