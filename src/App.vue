@@ -1,11 +1,11 @@
 <template>
-  <layoutIndex></layoutIndex>
+  <Designer></Designer>
 </template>
 
 <script lang="ts" setup>
 // import { reactive, toRefs } from 'vue'
 // import draggable from 'vuedraggable'
-import layoutIndex from '@/designer/layouts/index.vue'
+import Designer from './designer/Designer.vue'
 
 // const data = reactive({
 //   drag: false,

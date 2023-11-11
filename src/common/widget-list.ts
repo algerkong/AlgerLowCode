@@ -1,4 +1,4 @@
-interface WidgetOption {
+interface IWidgetOption {
   placeholder?: string
   clearable?: boolean
   showWordLimit?: boolean
@@ -84,16 +84,17 @@ interface WidgetOption {
   [name: string]: any
 }
 
-interface Widget {
+export interface IWidget {
   name: string
   type: string
   icon: string
   description: string
   defaultValue: any
-  options: WidgetOption
+  options: IWidgetOption
+  [name: string]: any
 }
 
-export const WIDGET_LIST: Widget[] = [
+export const WIDGET_LIST: IWidget[] = [
   {
     name: '单行文本',
     type: 'input',
