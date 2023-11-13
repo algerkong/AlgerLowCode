@@ -1,7 +1,7 @@
 <template>
   <t-layout>
     <t-header>
-      <LayoutHeader></LayoutHeader>
+      <LayoutHeader ref="layoutHeaderRef"></LayoutHeader>
     </t-header>
     <t-layout>
       <t-aside class="scrollbar">
@@ -18,21 +18,54 @@
 </template>
 
 <script setup lang="ts">
+import { ref, computed, onMounted } from 'vue'
+import { debounce } from 'lodash'
 import LayoutHeader from './components/LayoutHeader.vue'
+// 获取 #alger-lowcode 的外围高度 用于计算 t-layout--with-sider 的高度 使其滚动 如果外层是body 则不需要
+const layoutHeight = ref(0)
+const layout = ref<HTMLElement | null>(null)
+const layoutHeaderRef = ref(null)
+const layoutWithSiderHeight = computed(() => {
+  return layoutHeight.value + 'px'
+})
+
+const loadLayoutHeight = () => {
+  layout.value = document.querySelector('#alger-lowcode')
+  if (layout.value) {
+    const layoutHeaderHeight = layoutHeaderRef.value.$el ? layoutHeaderRef.value.$el.offsetHeight : 0
+    if (layout.value.parentElement!.tagName === 'BODY') {
+      layoutHeight.value = window.innerHeight - layoutHeaderHeight
+    } else {
+      layoutHeight.value = layout.value.parentElement!.offsetHeight - layoutHeaderHeight
+    }
+  }
+}
+
+onMounted(() => {
+  loadLayoutHeight()
+  window.addEventListener(
+    'resize',
+    debounce(() => {
+      loadLayoutHeight()
+    }, 200)
+  )
+})
 </script>
 
 <style lang="scss" scoped>
 .t-layout--with-sider {
-  height: calc(100vh - 56px);
+  height: v-bind(layoutWithSiderHeight);
 }
-.t-layout {
-  &__sider {
-    width: 260px;
-    overflow-y: auto;
-  }
-  &__content {
-    overflow-y: auto;
-  }
+
+.t-layout__sider {
+  width: 320px;
+  min-width: 320px;
+  overflow-y: auto;
+}
+
+.t-layout__content {
+  overflow-y: auto;
+  min-width: 600px;
 }
 
 .scrollbar {

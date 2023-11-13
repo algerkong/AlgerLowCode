@@ -4,10 +4,10 @@
       <template #logo>
         <img width="136" class="logo" src="https://www.tencent.com/img/index/menu_logo_hover.png" alt="logo" />
       </template>
-      <t-menu-item value="item1"> 已选内容 </t-menu-item>
+      <!-- <t-menu-item value="item1"> 已选内容 </t-menu-item>
       <t-menu-item value="item2"> 菜单内容一 </t-menu-item>
       <t-menu-item value="item3"> 菜单内容二 </t-menu-item>
-      <t-menu-item value="item4" :disabled="true"> 菜单内容三 </t-menu-item>
+      <t-menu-item value="item4" :disabled="true"> 菜单内容三 </t-menu-item> -->
       <template #operations>
         <a href="javascript:;"><t-icon class="t-menu__operations-icon" name="search" /></a>
         <a href="javascript:;"><t-icon class="t-menu__operations-icon" name="notification-filled" /></a>
@@ -17,13 +17,27 @@
         <t-popconfirm content="确定清空所有组件吗？" @confirm="widgetList.clearWidget">
           <t-button shape="circle" variant="text"><t-icon class="t-menu__operations-icon" name="delete" /></t-button>
         </t-popconfirm>
+        <t-button shape="circle" variant="text"><t-icon class="t-menu__operations-icon" name="delete" @click="dialogVisible = true" /></t-button>
+        <t-dialog v-model:visible="dialogVisible" title="标题">
+          <t-layout>
+            <pre>
+            {{ elementList }}
+            </pre>
+          </t-layout>
+        </t-dialog>
       </template>
     </t-head-menu>
   </t-header>
 </template>
 
 <script setup lang="ts">
-import { widgetList } from '@/designer/hooks/WidgetList'
+import { widgetList, elementList } from '@/designer/hooks/WidgetList'
+import { ref } from 'vue'
+const dialogVisible = ref(false)
+import { Codemirror } from 'vue-codemirror'
+import { javascript } from '@codemirror/lang-javascript'
+import { ref } from 'vue'
+import { EditorView } from '@codemirror/view'
 </script>
 
 <style scoped></style>

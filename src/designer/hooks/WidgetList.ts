@@ -1,9 +1,10 @@
 import { IWidget } from '@/common/widget-list'
-import { ref } from 'vue'
-import _ from 'loadsh'
+import { computed, ref } from 'vue'
+import _ from 'lodash'
 
 const elementList = ref<IWidget[]>([])
 const models = ref({})
+const selectIndex = ref(-1)
 
 const getKey = (type: string) => {
   return type + _.uniqueId()
@@ -12,6 +13,7 @@ const getKey = (type: string) => {
 const moveAddWidget = (newIndex: number) => {
   const widget = elementList.value[newIndex]
   widget.key = getKey(widget.type)
+  selectIndex.value = newIndex
 }
 
 class WidgetList {
@@ -24,11 +26,25 @@ class WidgetList {
       ...widget,
       key: getKey(widget.type),
     })
+    selectIndex.value = elementList.value.length - 1
+  }
+
+  updateWidget(widget: IWidget) {
+    console.log('widget', widget)
+    selectIndex.value = widget.newIndex
+  }
+
+  selectWidget(index) {
+    selectIndex.value = index
   }
 
   getWidgetList() {
     return elementList.value
   }
+
+  getSeletedWidget = computed(() => {
+    return elementList.value[selectIndex.value]
+  })
 
   getWidgetByName(name: string) {
     return elementList.value.find((item) => item.name === name)
@@ -53,4 +69,4 @@ class WidgetList {
   }
 }
 const widgetList = new WidgetList()
-export { widgetList, elementList, models }
+export { widgetList, elementList, models, selectIndex }

@@ -1,13 +1,11 @@
 <template>
   <AlgerLayout>
     <template #leftSider>
-      <WidgetAside></WidgetAside>
+      <WidgetAside />
     </template>
-    <CodeMain></CodeMain>
+    <CodeMain />
     <template #rightSider>
-      <div>
-        <div v-for="item in 100" :key="item" class="p-4 m-2 bg-gray-200">hello{{ item }}</div>
-      </div>
+      <ElementSetting />
     </template>
   </AlgerLayout>
 </template>
@@ -16,6 +14,7 @@
 import AlgerLayout from './layouts/Layout.vue'
 import CodeMain from './CodeMain.vue'
 import WidgetAside from './WidgetAside.vue'
+import ElementSetting from './ElementSetting.vue'
 </script>
 
 <style scoped lang="scss"></style>
