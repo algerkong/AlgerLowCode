@@ -17,8 +17,7 @@
 <script setup lang="ts">
 import { IWidget } from '@/common/widget-list'
 import Elements from './index'
-import { ref } from 'vue'
-import { widgetList, elementList, models, selectIndex } from '@/designer/hooks/WidgetList'
+import { widgetList, models, selectIndex } from '@/designer/hooks/WidgetList'
 const props = defineProps<{
   element: IWidget
   index: number

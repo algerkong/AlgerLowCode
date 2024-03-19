@@ -12,18 +12,8 @@
       @update="widgetList.updateWidget"
     >
       <template #item="{ element, index }">
-        <BaseElement :element="element" :index="index" />
+        <BaseElement :element :index />
       </template>
-      <!-- <div
-        v-for="(element, index) in elementList"
-        :key="index"
-        class="p-4 mb-2 transition-all border border-gray-200"
-        @click.stop="handleSelectElement(index)"
-      >
-        <component :is="Elements[element.type]" v-model="models[element.key]" :placeholder="element.description"></component>
-        <t-button theme="warning" @click="widgetList.deleteWidget(element)">删除</t-button>
-        <t-icon name="drag-move" class="draggable-item-move text-gray-400" />
-      </div> -->
     </draggable>
   </div>
 </template>
@@ -31,31 +21,13 @@
 <script setup lang="ts">
 import { reactive, toRefs } from 'vue'
 import draggable from 'vuedraggable'
-import Elements from './elements'
-import { ref } from 'vue'
-import { widgetList, elementList, models } from './hooks/WidgetList'
+import { widgetList, elementList } from './hooks/WidgetList'
 import BaseElement from './elements/BaseElement.vue'
 const data = reactive({
   drag: false,
   myArray: [],
 })
 const { drag, myArray } = toRefs(data)
-
-const deleteItem = (item) => {
-  myArray.value.splice(myArray.value.indexOf(item), 1)
-}
-
-const handleDraggableStart = () => {
-  drag.value = true
-}
-
-const handleDraggableEnd = () => {
-  drag.value = false
-}
-
-const handleSelectElement = (index) => {
-  // widgetList.selectWidget(index)
-}
 </script>
 
 <style scoped lang="scss">
